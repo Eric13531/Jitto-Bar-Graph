@@ -12,40 +12,29 @@ interface BarGraphProps {
 
 const BarGraph: React.FC<BarGraphProps> = ({ data, labels, width, height, align, colour }) => {
   const barArray = Array(data.length).fill(0)
+  const barArray2 = Array(data.length).fill(100)
   const [barSizeVer, setBarSizeVer] = useState<number[]>(barArray)
   const [barSizeHor, setBarSizeHor] = useState<number[]>(barArray)
   const [isVisible, setIsVisible] = useState<boolean[]>(Array.from({length: data.length}))
   // false for horizontal, true for vertical
 
-  // useEffect(() => {
-  //   setMaxValue(Math.max(...data));
-  // }, [data]);
-
   useEffect(() => {
-    // console.log("Barsize")
     const maxValue = Math.max(...data)
 
     if (align) {
-      setBarSizeVer(barArray);
+      setBarSizeVer(barArray2);
   
-      setBarSizeHor(prevBarSize => (
-        data.map(value => (value / maxValue) * 100)
-      ));
+      setBarSizeHor(data.map(value => (value / maxValue) * 100));
     } else {
-      setBarSizeHor(barArray);
+      setBarSizeHor(barArray2);
   
-      setBarSizeVer(prevBarSize => (
-        data.map(value => (value / maxValue) * 100)
-      ));
+      setBarSizeVer(data.map(value => (value / maxValue) * 100));
     }
-
     
   }, [data, align])
 
 
   const handleMouseEnter = (event: React.MouseEvent, index: number) => {
-    console.log("Here")
-    console.log(data[index]);
     const tempArray = [...isVisible]
     tempArray.fill(false)
     tempArray[index] = true;
@@ -53,8 +42,6 @@ const BarGraph: React.FC<BarGraphProps> = ({ data, labels, width, height, align,
   }
 
   const handleMouseLeave = (event: React.MouseEvent, index: number) => {
-    console.log("There")
-    console.log(data[index]);
     const tempArray = [...isVisible]
     tempArray.fill(false)
     setIsVisible(tempArray)
@@ -63,9 +50,7 @@ const BarGraph: React.FC<BarGraphProps> = ({ data, labels, width, height, align,
     <>
       {/* {menuVisible ? <Menu label={menuValue.label} value={menuValue.value} position={menuPosition}></Menu> : <div></div>} */}
       {align ? <div style={{ maxWidth: '60vw', width: '100%', minWidth: '30vw', height, padding: '10px', boxSizing: 'border-box', 
-                                  display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'end', paddingBottom: '30px'}}>
-        <div></div>
-        
+                                  display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'end', paddingBottom: '30px'}}>        
         {data.map((value, index) => (
           <div style={{ 
             margin: '0 5px',
@@ -94,16 +79,18 @@ const BarGraph: React.FC<BarGraphProps> = ({ data, labels, width, height, align,
           <div style={{
             position: 'absolute',
             transformOrigin: 'top right',
-            transform: 'translateX(-50%) translateY(100%) rotate(-30deg)',
+            transform: 'translateX(-50%) translateY(130%) rotate(-30deg)',
             fontSize: '20px'
           }}>{labels[index]}</div>
           </div>
         ))}
-      </div> : <div style={{ width, maxHeight: '68vh', height: '100%', minHeight: '35vh', border: '1px solid #ccc', padding: '10px', boxSizing: 'border-box',
+      </div> : <div style={{ maxHeight: '68vh', height: '50vh', minHeight: '35vh', width, border: '1px solid #ccc', padding: '10px', boxSizing: 'border-box',
                               display: 'flex', flexDirection: 'column', paddingBottom: '10px'}}>
         {data.map((value, index) => (
           <div style={{
+            margin: '5px 0',
             width: '100%', 
+            height: '100%',
             position: 'relative',
             display: 'flex', flexDirection: 'column', 
           }}>
@@ -113,9 +100,8 @@ const BarGraph: React.FC<BarGraphProps> = ({ data, labels, width, height, align,
             onMouseLeave={(e) => handleMouseLeave(e, index)}
             style={{
               width: `${barSizeVer[index]}%`,
-              height: '30px',
+              height: '100%',
               backgroundColor: !isVisible[index] ? (colour ? "#DD571C" : "#0062cc") : (colour ? "#e77645" : '#007bff'),
-              margin: '5px 0',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

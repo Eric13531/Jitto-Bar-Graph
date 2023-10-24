@@ -5,17 +5,14 @@ import './App.css';
 function App() {
   const [alignment, setAlignment] = useState<boolean>(false);
   const [colour, setColour] = useState<boolean>(false);
-  const data = [10, 20, 5, 30, 15, 10, 20, 5, 30, 15, 10, 20, 5, 30, 15, ]; // Example data array
-  const labels = ['Abasdfasi', 'Abasdfa', 'C', 'D', 'E', 'Abasdfa', 'B', 'C', 'D', 'E', 'A', 'B', 'Abasdfas', 'D', 'E', 'A', 'B', 'C', 'D', 'E']; // Example labels array
-
   const handleAlignCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAlignment(!alignment);
   }
-
-  
   const handleColourCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColour(!colour);
   }
+  const data = [10, 20, 5, 30, 15, 10, 20, 5, ];
+  const labels = ['Apple', 'Orange', 'Banana', 'Cherry', 'Kiwi', 'Watermelon', 'Pineapple', 'Strawberry'];
 
 
   return (
