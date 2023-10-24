@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 interface BarGraphProps {
   data: number[];
-  labels: string[];
+  labels?: string[];
   width: number;
   height: number;
   align: boolean;
   colour: boolean;
 }
 
-const BarGraph: React.FC<BarGraphProps> = ({ data, labels, width, height, align, colour }) => {
+const BarGraph: React.FC<BarGraphProps> = ({ data, labels = [], width, height, align, colour }) => {
   const barArray = Array(data.length).fill(0)
   const barArray2 = Array(data.length).fill(100)
   const [barSizeVer, setBarSizeVer] = useState<number[]>(barArray)
