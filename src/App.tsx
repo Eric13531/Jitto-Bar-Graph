@@ -1,23 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import BarGraph from './components/BarGraph';
 import './App.css';
 
 function App() {
+  const [alignment, setAlignment] = useState<boolean>(false);
+  const [colour, setColour] = useState<boolean>(false);
+  const data = [10, 20, 5, 30, 15, 10, 20, 5, 30, 15, 10, 20, 5, 30, 15, ]; // Example data array
+  const labels = ['Abasdfasi', 'Abasdfa', 'C', 'D', 'E', 'Abasdfa', 'B', 'C', 'D', 'E', 'A', 'B', 'Abasdfas', 'D', 'E', 'A', 'B', 'C', 'D', 'E']; // Example labels array
+
+  const handleAlignCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAlignment(!alignment);
+  }
+
+  
+  const handleColourCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setColour(!colour);
+  }
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 style={{marginTop:"0px", marginBottom: "10px"}}>Bar Graph Generator</h1>
+        
+        <div style={{width: '500px', height: '100%', border: '1px solid #ccc', padding: '5px', boxSizing: 'border-box', margin: '20px',
+                      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '30px'}}>
+          <div style={{margin: '2px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+          <label style={{fontSize:'20px', textAlign: 'center', marginBottom: '3px'}}>Change Orientation</label>
+          <input 
+            type="checkbox" 
+            checked={alignment} 
+            onChange={handleAlignCheckboxChange}
+            style={{}}></input>
+          </div>
+          <div style={{margin: '2px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+          <label style={{fontSize:'20px', textAlign: 'center', marginBottom: '3px'}}>Change Colour</label>
+          <input 
+            type="checkbox" 
+            checked={colour} 
+            onChange={handleColourCheckboxChange}
+            style={{}}></input>
+          </div>
+        </div>
+        
+        
+        <BarGraph data={data} labels={labels} width={500} height={420} align={alignment} colour={colour}></BarGraph>
       </header>
     </div>
   );
