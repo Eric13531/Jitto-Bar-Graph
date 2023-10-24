@@ -1,4 +1,3 @@
-import { integer } from 'aws-sdk/clients/cloudfront';
 import React, { useEffect, useState } from 'react';
 
 interface BarGraphProps {
